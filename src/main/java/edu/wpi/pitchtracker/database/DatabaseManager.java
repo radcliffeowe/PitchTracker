@@ -152,9 +152,9 @@ public class DatabaseManager {
      */
     public void runStatement(String statement) throws SQLException {
         Statement stm = dbConnection.createStatement();
-        // System.out.println("SQL: " + statement);
+        System.out.println("SQL: " + statement);
         stm.execute(statement);
-        // System.out.println(statement);
+        System.out.println(statement);
         stm.close();
     }
     /**
@@ -177,7 +177,8 @@ public class DatabaseManager {
     }
 
     public void initializeDatabaseManager() throws SQLException, IOException {
-        pitcherDAO.initTable("edu/wpi/pitchtracker/Pitchers.csv");
-        pitchesDAO.initTable("edu/wpi/pitchtracker/Pitches.csv");
+        System.out.println("Initializing database tables");
+        //pitcherDAO.initTable("/edu/wpi/pitchtracker/Pitchers.csv");
+        //pitchesDAO.initTable("/edu/wpi/pitchtracker/Pitches.csv");
     }
 }

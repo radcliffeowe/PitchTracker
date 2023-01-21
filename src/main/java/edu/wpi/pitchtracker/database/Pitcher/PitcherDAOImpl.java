@@ -26,6 +26,7 @@ public class PitcherDAOImpl implements IPitcherDAO{
     }
 
     public void initTable(String filepath) throws SQLException, IOException {
+        System.out.println("Initializing Pitcher table");
         try {
             DatabaseManager.getInstance()
                     .runStatement(
@@ -37,9 +38,11 @@ public class PitcherDAOImpl implements IPitcherDAO{
             e.printStackTrace();
             System.out.println(e.getSQLState());
         }
+        System.out.println("Table created, reading resource filepath");
         List<String> lines = CSVReader.readResourceFilepath(filepath);
+        System.out.println("CSV read");
         for (String currentLine : lines) {
-            //      System.out.println(currentLine);
+            System.out.println(currentLine);
             addInit(makeArrayListFromString(currentLine));
         }
     }
@@ -50,6 +53,7 @@ public class PitcherDAOImpl implements IPitcherDAO{
         pitcherFields.add(0, fields.get(0)); //pitcher id
         pitcherFields.add(1, fields.get(1)); //first name
         pitcherFields.add(2, fields.get(2)); //last name
+        System.out.println(pitcherFields);
 
         DatabaseManager.getInstance().runStatement(generateInsertStatement(pitcherFields));
     }
@@ -91,7 +95,7 @@ public class PitcherDAOImpl implements IPitcherDAO{
     @Override
     public String generateInsertStatement(ArrayList<String> fields) {
         return String.format(
-                "INSERT INTO Pitchers VALUES ('%d', '%s', '%s')",
+                "INSERT INTO Pitchers VALUES (%d, '%s', '%s')",
                 Integer.parseInt(fields.get(0)), fields.get(1), fields.get(2));
     }
 

@@ -29,7 +29,7 @@ public class PitchesDAOImpl implements IPitchesDAO{
         try {
             DatabaseManager.getInstance()
                     .runStatement(
-                            "CREATE TABLE Pitches (pitch_num INTEGER PRIMARY KEY, pitcher_id INTEGER, type varChar(2), location INTEGER, pitch_call varChar(1), swinging varChar(1), barrell varChar(1), outcome varChar(2), balls INTEGER, strikes INTEGER, batter_hand varChar(1), velocity INTEGER, FOREIGN KEY (pitcher_id) REFERENCES Pitchers(p_id))");
+                            "CREATE TABLE Pitches (pitch_num INTEGER PRIMARY KEY, pitcher_id INTEGER, type varChar(2), location INTEGER, pitch_call varChar(1), swinging varChar(1), barrell varChar(1), outcome varChar(4), balls INTEGER, strikes INTEGER, batter_hand varChar(1), velocity INTEGER, FOREIGN KEY (pitcher_id) REFERENCES Pitchers(p_id))");
         } catch (SQLException e) {
             if (e.getSQLState().equals("X0Y32")) {
                 return;
@@ -37,9 +37,11 @@ public class PitchesDAOImpl implements IPitchesDAO{
             e.printStackTrace();
             System.out.println(e.getSQLState());
         }
+        System.out.println("Table created, reading resource path");
         List<String> lines = CSVReader.readResourceFilepath(filepath);
+        System.out.println("CSV read, inserting rows");
         for (String currentLine : lines) {
-            //      System.out.println(currentLine);
+            System.out.println(currentLine);
             addInit(makeArrayListFromString(currentLine));
         }
     }
@@ -119,7 +121,7 @@ public class PitchesDAOImpl implements IPitchesDAO{
     @Override
     public String generateInsertStatement(ArrayList<String> fields) {
         return String.format(
-                "INSERT INTO Pitches VALUES ('%d', '%d', '%s', '%d', '%s', '%s', '%s', '%s', '%d', '%d', '%s', '%d')",
+                "INSERT INTO Pitches VALUES (%d, %d, '%s', %d, '%s', '%s', '%s', '%s', %d, %d, '%s', %d)",
                 Integer.parseInt(fields.get(0)), Integer.parseInt(fields.get(1)), fields.get(2), Integer.parseInt(fields.get(3)), fields.get(4), fields.get(5), fields.get(6), fields.get(7), Integer.parseInt(fields.get(8)), Integer.parseInt(fields.get(9)), fields.get(10), Integer.parseInt(fields.get(11)));
     }
 
