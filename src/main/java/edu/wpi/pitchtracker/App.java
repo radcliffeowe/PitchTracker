@@ -4,6 +4,7 @@ import edu.wpi.pitchtracker.database.DatabaseManager;
 import edu.wpi.pitchtracker.views.SceneManager;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import lombok.extern.slf4j.Slf4j;
@@ -38,6 +39,7 @@ public class App extends Application {
     } catch (IOException e) {
       e.printStackTrace();
     }
+    primaryStage.getIcons().add(new Image("/edu/wpi/pitchtracker/WPI_Baseball.jpg"));
     SceneManager.getInstance().setStage(primaryStage);
     primaryStage.setScene(scene);
     primaryStage.show();
