@@ -38,7 +38,7 @@ public class App extends Application {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    //SceneManager.getInstance().setStage(primaryStage);
+    SceneManager.getInstance().setStage(primaryStage);
     primaryStage.setScene(scene);
     primaryStage.show();
 

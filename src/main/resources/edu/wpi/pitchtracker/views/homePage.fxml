@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="edu.wpi.pitchtracker.views.HomePageController"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.pitchtracker.views.HomePageController">
+   <children>
+      <AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <ImageView fx:id="homeImage" fitHeight="150.0" fitWidth="200.0" layoutX="225.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../WPI_Baseball.jpg" />
+               </image>
+            </ImageView>
+            <HBox fx:id="menuBox" layoutX="75.0" layoutY="221.0" prefHeight="100.0" prefWidth="435.0">
+               <children>
+                  <Button fx:id="exportButton" mnemonicParsing="false" prefHeight="100.0" prefWidth="220.0" text="Export to CSV" />
+                  <Button fx:id="pitchTrackerButton" mnemonicParsing="false" prefHeight="100.0" prefWidth="218.0" text="Pitch Tracker" />
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </children>
 </AnchorPane>
