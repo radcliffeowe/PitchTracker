@@ -1,6 +1,7 @@
 package edu.wpi.pitchtracker.database.Pitches;
 
 import edu.wpi.pitchtracker.database.CSV.CSVReader;
+import edu.wpi.pitchtracker.database.CSV.CSVWriter;
 import edu.wpi.pitchtracker.database.DatabaseManager;
 
 import java.io.File;
@@ -132,6 +133,29 @@ public class PitchesDAOImpl implements IPitchesDAO{
 
     @Override
     public void backUpToCSV(File file) throws SQLException, IOException {
+        ArrayList<String> toAdd = new ArrayList<>();
+        ResultSet currentRow = get();
+        toAdd.add("pitch_num,pitcher_id,type,location,call,swinging,barrell,outcome,balls,strikes,batter handedness,velocity");
 
+        while (currentRow.next()) {
+            toAdd.add(
+                    String.format(
+                            "%d,%d,%s,%d,%s,%s,%s,%s,%d,%d,%s,%d",
+                            currentRow.getInt("pitch_num"),
+                            currentRow.getInt("pitcher_id"),
+                            currentRow.getString("type"),
+                            currentRow.getInt("location"),
+                            currentRow.getString("pitch_call"),
+                            currentRow.getString("swinging"),
+                            currentRow.getString("barrell"),
+                            currentRow.getString("outcome"),
+                            currentRow.getInt("balls"),
+                            currentRow.getInt("strikes"),
+                            currentRow.getString("batter_hand"),
+                            currentRow.getInt("velocity")));
+        }
+        currentRow.close();
+
+        CSVWriter.writeAll(file, toAdd);
     }
 }

@@ -3,6 +3,7 @@ package edu.wpi.pitchtracker.database;
 import edu.wpi.pitchtracker.database.Pitcher.PitcherDAOImpl;
 import edu.wpi.pitchtracker.database.Pitches.PitchesDAOImpl;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.*;
 
@@ -10,6 +11,14 @@ public class DatabaseManager {
 
     private final PitcherDAOImpl pitcherDAO = new PitcherDAOImpl();
     private final PitchesDAOImpl pitchesDAO = new PitchesDAOImpl();
+
+    public PitcherDAOImpl getPitcherDAO() {
+        return pitcherDAO;
+    }
+
+    public PitchesDAOImpl getPitchesDAO() {
+        return pitchesDAO;
+    }
 
     public enum ConnType {
         EMBEDDED,
@@ -180,5 +189,9 @@ public class DatabaseManager {
         System.out.println("Initializing database tables");
         //pitcherDAO.initTable("/edu/wpi/pitchtracker/Pitchers.csv");
         //pitchesDAO.initTable("/edu/wpi/pitchtracker/Pitches.csv");
+    }
+
+    public void backupToCSV(File file){
+
     }
 }

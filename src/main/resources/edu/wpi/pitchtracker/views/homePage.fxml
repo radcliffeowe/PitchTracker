@@ -6,7 +6,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.pitchtracker.views.HomePageController">
    <children>
       <AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0">
@@ -18,7 +17,7 @@
             </ImageView>
             <HBox fx:id="menuBox" layoutX="75.0" layoutY="221.0" prefHeight="100.0" prefWidth="435.0">
                <children>
-                  <Button fx:id="exportButton" mnemonicParsing="false" prefHeight="100.0" prefWidth="220.0" text="Export to CSV" />
+                  <Button fx:id="exportButton" mnemonicParsing="false" onAction="#exportToCSV" prefHeight="100.0" prefWidth="220.0" text="Export to CSV" />
                   <Button fx:id="pitchTrackerButton" mnemonicParsing="false" prefHeight="100.0" prefWidth="218.0" text="Pitch Tracker" />
                </children>
             </HBox>
