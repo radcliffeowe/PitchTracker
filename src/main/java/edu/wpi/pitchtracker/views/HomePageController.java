@@ -2,20 +2,26 @@ package edu.wpi.pitchtracker.views;
 
 import com.jfoenix.animation.alert.JFXAlertAnimation;
 import com.jfoenix.controls.JFXAlert;
+import edu.wpi.pitchtracker.App;
 import edu.wpi.pitchtracker.database.DatabaseManager;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class HomePageController implements Initializable {
@@ -56,6 +62,19 @@ public class HomePageController implements Initializable {
 
     private void export(File file) throws SQLException, IOException {
         DatabaseManager.getInstance().getPitchesDAO().backUpToCSV(file);
+    }
 
+    @FXML
+    public void openPitchTracker(){
+        Parent root = null;
+        try {
+            root =
+                    FXMLLoader.load(Objects.requireNonNull(App.class.getResource("views/pitchTracker.fxml")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Stage window = SceneManager.getInstance().getStage();
+        Scene scene1 = new Scene(root);
+        window.setScene(scene1);
     }
 }

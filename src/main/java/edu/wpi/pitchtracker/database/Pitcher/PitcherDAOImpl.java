@@ -78,7 +78,7 @@ public class PitcherDAOImpl implements IPitcherDAO{
     }
 
     @Override
-    public void add(ArrayList<String> fields) throws SQLException {
+    public void add(Pitcher pitcher) throws SQLException {
 
     }
 

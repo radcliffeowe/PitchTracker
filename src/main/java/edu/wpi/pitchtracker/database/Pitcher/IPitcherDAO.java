@@ -14,7 +14,7 @@ public interface IPitcherDAO {
 
     public ResultSet get() throws SQLException, IOException;
 
-    public void add(ArrayList<String> fields) throws SQLException;
+    public void add(Pitcher pitcher) throws SQLException;
 
     public void delete(String reqID) throws SQLException;
 

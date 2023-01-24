@@ -105,7 +105,7 @@ public class PitchesDAOImpl implements IPitchesDAO{
     }
 
     @Override
-    public void add(ArrayList<String> fields) throws SQLException {
+    public void add(Pitch pitch) throws SQLException {
 
     }
 

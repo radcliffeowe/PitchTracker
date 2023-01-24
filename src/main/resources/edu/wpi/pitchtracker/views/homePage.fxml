@@ -18,7 +18,7 @@
             <HBox fx:id="menuBox" layoutX="75.0" layoutY="221.0" prefHeight="100.0" prefWidth="435.0">
                <children>
                   <Button fx:id="exportButton" mnemonicParsing="false" onAction="#exportToCSV" prefHeight="100.0" prefWidth="220.0" text="Export to CSV" />
-                  <Button fx:id="pitchTrackerButton" mnemonicParsing="false" prefHeight="100.0" prefWidth="218.0" text="Pitch Tracker" />
+                  <Button fx:id="pitchTrackerButton" mnemonicParsing="false" onAction="#openPitchTracker" prefHeight="100.0" prefWidth="218.0" text="Pitch Tracker" />
                </children>
             </HBox>
          </children>
