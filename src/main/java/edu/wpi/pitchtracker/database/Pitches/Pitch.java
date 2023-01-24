@@ -7,22 +7,18 @@ public class Pitch {
     private Call call;
     private boolean swinging;
     private boolean barrell;
-    private Outcome outcome;
     private int balls;
     private int strikes;
-    private BatterHand batterHand;
     private int velocity;
 
-    public Pitch(String type, int location, Call call, boolean swinging, boolean barrell, Outcome outcome, int balls, int strikes, BatterHand batterHand, int velocity) {
+    public Pitch(String type, int location, Call call, boolean swinging, boolean barrell,  int balls, int strikes, int velocity) {
         this.type = type;
         this.location = location;
         this.call = call;
         this.swinging = swinging;
         this.barrell = barrell;
-        this.outcome = outcome;
         this.balls = balls;
         this.strikes = strikes;
-        this.batterHand = batterHand;
         this.velocity = velocity;
     }
 
@@ -66,14 +62,6 @@ public class Pitch {
         this.barrell = barrell;
     }
 
-    public Outcome getOutcome() {
-        return outcome;
-    }
-
-    public void setOutcome(Outcome outcome) {
-        this.outcome = outcome;
-    }
-
     public int getBalls() {
         return balls;
     }
@@ -90,14 +78,6 @@ public class Pitch {
         this.strikes = strikes;
     }
 
-    public BatterHand getBatterHand() {
-        return batterHand;
-    }
-
-    public void setBatterHand(BatterHand batterHand) {
-        this.batterHand = batterHand;
-    }
-
     public int getVelocity() {
         return velocity;
     }
@@ -106,25 +86,14 @@ public class Pitch {
         this.velocity = velocity;
     }
 
-    public enum Outcome{
-        FB,
-        LD,
-        GB,
-        K,
-        BB,
-        HBP,
-        CI
-    }
+
 
     public enum Call{
         STRIKE,
         BALL
     }
 
-    public enum BatterHand{
-        RIGHT,
-        LEFT
-    }
+
 
 
 

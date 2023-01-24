@@ -1,5 +1,6 @@
 package edu.wpi.pitchtracker.database;
 
+import edu.wpi.pitchtracker.database.AtBat.AtBatDAOImpl;
 import edu.wpi.pitchtracker.database.Pitcher.PitcherDAOImpl;
 import edu.wpi.pitchtracker.database.Pitches.PitchesDAOImpl;
 
@@ -11,6 +12,7 @@ public class DatabaseManager {
 
     private final PitcherDAOImpl pitcherDAO = new PitcherDAOImpl();
     private final PitchesDAOImpl pitchesDAO = new PitchesDAOImpl();
+    private final AtBatDAOImpl atBatDAO = new AtBatDAOImpl();
 
     public PitcherDAOImpl getPitcherDAO() {
         return pitcherDAO;
@@ -18,6 +20,10 @@ public class DatabaseManager {
 
     public PitchesDAOImpl getPitchesDAO() {
         return pitchesDAO;
+    }
+
+    public AtBatDAOImpl getAtBatDAO() {
+        return atBatDAO;
     }
 
     public enum ConnType {
@@ -186,9 +192,11 @@ public class DatabaseManager {
     }
 
     public void initializeDatabaseManager() throws SQLException, IOException {
-        System.out.println("Initializing database tables");
-        //pitcherDAO.initTable("/edu/wpi/pitchtracker/Pitchers.csv");
-        //pitchesDAO.initTable("/edu/wpi/pitchtracker/Pitches.csv");
+/*        System.out.println("Initializing database tables");
+        pitcherDAO.initTable("/edu/wpi/pitchtracker/Pitchers.csv");
+        atBatDAO.initTable("/edu/wpi/pitchtracker/AtBats.csv");
+        pitchesDAO.initTable("/edu/wpi/pitchtracker/Pitches.csv");*/
+
     }
 
     public void backupToCSV(File file){

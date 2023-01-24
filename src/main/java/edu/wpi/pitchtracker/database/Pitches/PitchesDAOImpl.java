@@ -17,7 +17,7 @@ public class PitchesDAOImpl implements IPitchesDAO{
         DatabaseManager.getInstance().dropTableIfExist("Pitches");
         DatabaseManager.getInstance()
                 .runStatement(
-                        "CREATE TABLE Pitches (pitch_num INTEGER PRIMARY KEY, pitcher_id INTEGER, type varChar(2), location INTEGER, call varChar(1), swinging varChar(1), barrell varChar(1), outcome varChar(2), balls INTEGER, strikes INTEGER, batter_hand varChar(1), velocity INTEGER, FOREIGN KEY (pitcher_id) REFERENCES Pitcher(p_id))");
+                        "CREATE TABLE Pitches (pitch_num INTEGER PRIMARY KEY, pitcher_id INTEGER, type varChar(2), location INTEGER, call varChar(1), swinging varChar(1), barrell varChar(1), balls INTEGER, strikes INTEGER, velocity INTEGER DEFAULT 0, atBatId INTEGER, FOREIGN KEY (pitcher_id) REFERENCES Pitcher(p_id), FOREIGN KEY (atBatId) REFERENCES AtBat(atBatId))");
 
         List<String> lines = CSVReader.readFile(file);
         for (String currentLine : lines) {
@@ -30,7 +30,7 @@ public class PitchesDAOImpl implements IPitchesDAO{
         try {
             DatabaseManager.getInstance()
                     .runStatement(
-                            "CREATE TABLE Pitches (pitch_num INTEGER PRIMARY KEY, pitcher_id INTEGER, type varChar(2), location INTEGER, pitch_call varChar(1), swinging varChar(1), barrell varChar(1), outcome varChar(4), balls INTEGER, strikes INTEGER, batter_hand varChar(1), velocity INTEGER, FOREIGN KEY (pitcher_id) REFERENCES Pitchers(p_id))");
+                            "CREATE TABLE Pitches (pitch_num INTEGER PRIMARY KEY, pitcher_id INTEGER, type varChar(2), location INTEGER, pitch_call varChar(1), swinging varChar(1), barrell varChar(1), balls INTEGER, strikes INTEGER, velocity INTEGER DEFAULT 0, atBatId INTEGER, FOREIGN KEY (pitcher_id) REFERENCES Pitchers(p_id), FOREIGN KEY (atBatId) REFERENCES AtBat(atBatId))");
         } catch (SQLException e) {
             if (e.getSQLState().equals("X0Y32")) {
                 return;
@@ -60,8 +60,7 @@ public class PitchesDAOImpl implements IPitchesDAO{
         pitchFields.add(7, fields.get(7)); //first name
         pitchFields.add(8, fields.get(8)); //last name
         pitchFields.add(9, fields.get(9)); //pitcher id
-        pitchFields.add(10, fields.get(10)); //first name
-        pitchFields.add(11, fields.get(11)); //last name
+        pitchFields.add(10, fields.get(10));
 
         DatabaseManager.getInstance().runStatement(generateInsertStatement(pitchFields));
     }
@@ -76,11 +75,10 @@ public class PitchesDAOImpl implements IPitchesDAO{
         String call = currentLineSplit[4];
         String swinging = currentLineSplit[5];
         String barrell = currentLineSplit[6];
-        String outcome = currentLineSplit[7];
-        String balls = currentLineSplit[8];
-        String strikes = currentLineSplit[9];
-        String batterHand = currentLineSplit[10];
-        String velo = currentLineSplit[11];
+        String balls = currentLineSplit[7];
+        String strikes = currentLineSplit[8];
+        String velo = currentLineSplit[9];
+        String atBatId = currentLineSplit[10];
 
 
         fields.add(pitchNum);
@@ -90,11 +88,10 @@ public class PitchesDAOImpl implements IPitchesDAO{
         fields.add(call);
         fields.add(swinging);
         fields.add(barrell);
-        fields.add(outcome);
         fields.add(balls);
         fields.add(strikes);
-        fields.add(batterHand);
         fields.add(velo);
+        fields.add(atBatId);
 
         return fields;
     }
@@ -122,8 +119,8 @@ public class PitchesDAOImpl implements IPitchesDAO{
     @Override
     public String generateInsertStatement(ArrayList<String> fields) {
         return String.format(
-                "INSERT INTO Pitches VALUES (%d, %d, '%s', %d, '%s', '%s', '%s', '%s', %d, %d, '%s', %d)",
-                Integer.parseInt(fields.get(0)), Integer.parseInt(fields.get(1)), fields.get(2), Integer.parseInt(fields.get(3)), fields.get(4), fields.get(5), fields.get(6), fields.get(7), Integer.parseInt(fields.get(8)), Integer.parseInt(fields.get(9)), fields.get(10), Integer.parseInt(fields.get(11)));
+                "INSERT INTO Pitches VALUES (%d, %d, '%s', %d, '%s', '%s', '%s', %d, %d, %d, %d)",
+                Integer.parseInt(fields.get(0)), Integer.parseInt(fields.get(1)), fields.get(2), Integer.parseInt(fields.get(3)), fields.get(4), fields.get(5), fields.get(6), Integer.parseInt(fields.get(7)), Integer.parseInt(fields.get(8)), Integer.parseInt(fields.get(9)), Integer.parseInt(fields.get(10)));
     }
 
     @Override
@@ -135,7 +132,7 @@ public class PitchesDAOImpl implements IPitchesDAO{
     public void backUpToCSV(File file) throws SQLException, IOException {
         ArrayList<String> toAdd = new ArrayList<>();
         ResultSet currentRow = get();
-        toAdd.add("pitch_num,pitcher_id,type,location,call,swinging,barrell,outcome,balls,strikes,batter handedness,velocity");
+        toAdd.add("pitch_num,pitcher_id,type,location,call,swinging,barrell,balls,strikes,velocity,atBatId");
 
         while (currentRow.next()) {
             toAdd.add(
@@ -148,11 +145,10 @@ public class PitchesDAOImpl implements IPitchesDAO{
                             currentRow.getString("pitch_call"),
                             currentRow.getString("swinging"),
                             currentRow.getString("barrell"),
-                            currentRow.getString("outcome"),
                             currentRow.getInt("balls"),
                             currentRow.getInt("strikes"),
-                            currentRow.getString("batter_hand"),
-                            currentRow.getInt("velocity")));
+                            currentRow.getInt("velocity"),
+                            currentRow.getInt("atBatId")));
         }
         currentRow.close();
 
